@@ -4,6 +4,7 @@ import logging
 
 from basicsr.utils import get_root_logger
 from basicsr.utils.registry import METRIC_REGISTRY
+from basicsr.utils import get_root_logger
 
 @METRIC_REGISTRY.register()
 def calculate_lpips(img, img2, lpips_model, **kwargs):

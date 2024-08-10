@@ -2,8 +2,10 @@ import clip
 import torch
 import logging
 import open_clip
-import torch.nn.functional as F
 import logging
+
+import torch.nn.functional as F
+from basicsr.utils import get_root_logger
 from basicsr.utils.registry import METRIC_REGISTRY
 
 @METRIC_REGISTRY.register()
