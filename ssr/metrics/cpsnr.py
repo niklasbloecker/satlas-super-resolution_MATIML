@@ -1,7 +1,8 @@
 import numpy as np
+import logging 
 
 from basicsr.utils.registry import METRIC_REGISTRY
-
+from basicsr.utils import get_root_logger
 from ssr.utils.metric_utils import to_y_channel, reorder_image
 
 @METRIC_REGISTRY.register()
@@ -12,6 +13,7 @@ def calculate_cpsnr(img, img2, crop_border, input_order='HWC', test_y_channel=Fa
 
     Adds maximization of translations and brightness bias to PSNR metric.
     """
+    logger = get_root_logger(logger_name='basicsr', log_level=logging.INFO)
     img1 = img
     assert img1.shape == img2.shape, (f'Image shapes are different: {img1.shape}, {img2.shape}.')
     if input_order not in ['HWC', 'CHW']:
@@ -56,4 +58,5 @@ def calculate_cpsnr(img, img2, crop_border, input_order='HWC', test_y_channel=Fa
 
     if best_mse == 0:
         return float('inf')
+    logger.info(f"CPSNR: {10. * np.log10(255. * 255. / best_mse)}")
     return 10. * np.log10(255. * 255. / best_mse)

@@ -1,11 +1,14 @@
 import lpips
 import torch
+import logging
 
+from basicsr.utils import get_root_logger
 from basicsr.utils.registry import METRIC_REGISTRY
 
 @METRIC_REGISTRY.register()
 def calculate_lpips(img, img2, lpips_model, **kwargs):
     device = torch.device('cuda')
+    logger = get_root_logger(logger_name='basicsr', log_level=logging.INFO)
 
     if lpips_model == 'alexnet':
         lpips_loss_fn = lpips.LPIPS(net='alex').to(device) # best forward scores
@@ -18,4 +21,5 @@ def calculate_lpips(img, img2, lpips_model, **kwargs):
     tensor2 = tensor2.unsqueeze(0).to(device).float()/255
 
     lpips_loss = lpips_loss_fn(tensor1, tensor2).detach().item()
+    logger.info(f"LIPS: {lpips_loss}")
     return lpips_loss
