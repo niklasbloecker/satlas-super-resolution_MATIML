@@ -3,9 +3,8 @@ import torch
 import logging
 import open_clip
 import torch.nn.functional as F
-
+import logging
 from basicsr.utils.registry import METRIC_REGISTRY
-from basicsr.utils import get_root_logger
 
 @METRIC_REGISTRY.register()
 def calculate_clipscore(img, img2, clip_model, **kwargs):
