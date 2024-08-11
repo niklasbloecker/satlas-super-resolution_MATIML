@@ -20,14 +20,17 @@ def calculate_clipscore(img, img2, clip_model, **kwargs):
         if clip_model == 'clip-ViT-B/16':
             model, _ = clip.load("ViT-B/16", device=device)
             model = model.to(device)
+            img_size = (224,224)
             logger.info(f"{'clip-ViT-B/16'} loaded with img size {img_size}")
         elif clip_model == 'clipa-ViT-bigG-14':
             model, _, _ = open_clip.create_model_and_transforms('ViT-bigG-14-CLIPA-336', pretrained='datacomp1b')
             model = model.to(device)
+            img_size = (336,336)
             logger.info(f"{'clipa-ViT-bigG-14'} loaded with img size {img_size}")
         elif clip_model == 'siglip-ViT-SO400M-14':
             model, _, _ = open_clip.create_model_and_transforms('ViT-SO400M-14-SigLIP-384', pretrained='webli')
             model = model.to(device)
+            img_size = (384,384)
             logger.info(f"{'siglip-ViT-SO400M-14'} loaded with img size {img_size}")
         else:
             print(clip_model, " is not supported for CLIPScore.")
