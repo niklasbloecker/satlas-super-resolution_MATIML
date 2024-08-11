@@ -15,7 +15,8 @@ def calculate_remote_clipscore(img, img2, clip_model, **kwargs):
     device = torch.device('cuda')
     logger = get_root_logger(logger_name='basicsr', log_level=logging.INFO)
 
-    if remoteClipModel == None:
+    try: remoteClipModel
+    except NameError:
         if clip_model == 'RN50':
             checkpoint_path = hf_hub_download("chendelong/RemoteCLIP", f"RemoteCLIP-{clip_model}.pt", cache_dir='checkpoints')
             model, _, preprocess = open_clip.create_model_and_transforms(clip_model)
