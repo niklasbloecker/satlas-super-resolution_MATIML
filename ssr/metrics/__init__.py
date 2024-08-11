@@ -6,8 +6,8 @@ from basicsr.metrics.psnr_ssim import calculate_psnr, calculate_ssim
 from .clipscore import calculate_clipscore 
 from .cpsnr import calculate_cpsnr
 from .lpips import calculate_lpips
-
-__all__ = ['calculate_psnr', 'calculate_ssim', 'calculate_clipscore', 'calculate_cpsnr', 'calculate_lpips']
+from .remote_clipscore import calculate_remote_clipscore
+__all__ = ['calculate_psnr', 'calculate_ssim', 'calculate_clipscore', 'calculate_cpsnr', 'calculate_lpips', 'calculate_remote_clipscore']
 
 
 def calculate_metric(data, opt):
