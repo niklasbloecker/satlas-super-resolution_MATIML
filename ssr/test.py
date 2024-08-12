@@ -46,10 +46,10 @@ def test_pipeline(root_path):
 
 
 if __name__ == '__main__':
-    logger = get_root_logger(logger_name='basicsr', log_level=logging.INFO, log_file=log_file)
+    logger = get_root_logger(logger_name='basicsr', log_level=logging.INFO)
 
     start_time = time.time()
     root_path = os.path.abspath(os.path.join(__file__, os.path.pardir, os.path.pardir))
     test_pipeline(root_path)
-    
+
     logger.info(f'Runtime ---{time.time() - start_time}---')
