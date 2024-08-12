@@ -76,7 +76,7 @@ test_datasets:
 
 network_g:
   type: SSR_RRDBNet
-  num_in_ch: 12  # number of Sentinel2 images * 3 channels (RGB)
+  num_in_ch: 24  # number of Sentinel2 images * 3 channels (RGB)
   num_out_ch: 3
   num_feat: 64
   num_block: 23
@@ -84,7 +84,7 @@ network_g:
 
 network_d:
   type: SSR_UNetDiscriminatorSN
-  num_in_ch: 15  # RGB of Real/Fake image + [optional] old high-res image + [optional] low-res images
+  num_in_ch: 27  # RGB of Real/Fake image + [optional] old high-res image + [optional] low-res images
   num_feat: 64
   skip_connection: True
 
