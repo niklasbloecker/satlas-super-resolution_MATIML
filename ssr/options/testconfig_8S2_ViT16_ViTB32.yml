@@ -35,7 +35,7 @@ datasets:
 
     s2_bands: [tci]
 
-    n_s2_images: 4
+    n_s2_images: 8
 
     io_backend:
       type: disk
@@ -52,7 +52,7 @@ datasets:
 
     s2_bands: [tci]
 
-    n_s2_images: 4
+    n_s2_images: 8
 
     io_backend:
       type: disk
@@ -69,7 +69,7 @@ test_datasets:
 
      use_shuffle: False
 
-     n_s2_images: 4
+     n_s2_images: 8
 
      io_backend:
        type: disk
