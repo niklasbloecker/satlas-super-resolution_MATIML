@@ -35,7 +35,7 @@ datasets:
 
     s2_bands: [tci]
 
-    n_s2_images: 4
+    n_s2_images: 8
 
     io_backend:
       type: disk
@@ -52,7 +52,7 @@ datasets:
 
     s2_bands: [tci]
 
-    n_s2_images: 4
+    n_s2_images: 8
 
     io_backend:
       type: disk
@@ -76,7 +76,7 @@ test_datasets:
 
 network_g:
   type: SSR_RRDBNet
-  num_in_ch: 12  # number of Sentinel2 images * 3 channels (RGB)
+  num_in_ch: 24  # number of Sentinel2 images * 3 channels (RGB)
   num_out_ch: 3
   num_feat: 64
   num_block: 23
@@ -84,13 +84,13 @@ network_g:
 
 network_d:
   type: SSR_UNetDiscriminatorSN
-  num_in_ch: 15  # RGB of Real/Fake image + [optional] old high-res image + [optional] low-res images
+  num_in_ch: 27  # RGB of Real/Fake image + [optional] old high-res image + [optional] low-res images
   num_feat: 64
   skip_connection: True
 
 # path
 path:
-  pretrain_network_g: /content/esrgan_baseline.pth
+  pretrain_network_g: /content/esrgan_8S2.pth
   param_key_g: params_ema
   strict_load_g: true
   param_key_d: params
@@ -108,11 +108,11 @@ val:
       crop_border: 4
       test_y_channel: false
       better: higher  # the higher, the better. Default: higher
-#    ssim:
-#      type: calculate_ssim
-#      crop_border: 4
-#      test_y_channel: false
-#      better: higher
+    ssim:
+      type: calculate_ssim
+      crop_border: 4
+      test_y_channel: false
+      better: higher
 
 # Testing Settings
 test:
@@ -123,20 +123,20 @@ test:
        type: calculate_psnr
        crop_border: 4
        test_y_channel: false
-#     ssim:
-#       type: calculate_ssim
-#       crop_border: 4
-#       test_y_channel: false
+     ssim:
+       type: calculate_ssim
+       crop_border: 4
+       test_y_channel: false
      cpsnr:
        type: calculate_cpsnr
        crop_border: 4
        test_y_channel: false
-#     lpips:
-#       type: calculate_lpips
-#       lpips_model: vgg
-#     clipscore:
-#       type: calculate_clipscore
-#       clip_model: clipa-ViT-bigG-14  # see ssr/metrics/clipscore.py for currently supported models
+     lpips:
+       type: calculate_lpips
+       lpips_model: vgg
+     clipscore:
+       type: calculate_clipscore
+       clip_model: clip-ViT-B/16  # see ssr/metrics/clipscore.py for currently supported models
      remote_clipscore:
        type: calculate_remote_clipscore
        clip_model: ViT-B-32  # see ssr/metrics/remote_clipscore.py for currently supported models
