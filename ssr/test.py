@@ -1,6 +1,7 @@
 # flake8: noqa
 import os
 import torch
+import time
 import logging
 
 from basicsr.data import build_dataloader, build_dataset
@@ -45,5 +46,7 @@ def test_pipeline(root_path):
 
 
 if __name__ == '__main__':
+    start_time = time.time()
     root_path = os.path.abspath(os.path.join(__file__, os.path.pardir, os.path.pardir))
     test_pipeline(root_path)
+    print(f'Runtime ---{time.time() - start_time}---')
