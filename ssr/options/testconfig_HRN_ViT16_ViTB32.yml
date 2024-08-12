@@ -3,7 +3,7 @@
 # PYTHONPATH="./:${PYTHONPATH}"  CUDA_VISIBLE_DEVICES=0 python basicsr/test.py -opt options/test/SRResNet_SRGAN/test_MSRResNet_x4.yml
 
 # general settings
-name: SRCNN_ViT16_ViTB32_small_val
+name: 001_MSRResNet_x4_f64b16_DIV2K_1000k_B16G1_wandb
 model_type: SSRESRGANModel
 scale: 4
 num_gpu: 1  # set num_gpu: 0 for cpu mode
@@ -35,7 +35,7 @@ datasets:
 
     s2_bands: [tci]
 
-    n_s2_images: 8
+    n_s2_images: 4
 
     io_backend:
       type: disk
@@ -52,7 +52,7 @@ datasets:
 
     s2_bands: [tci]
 
-    n_s2_images: 8
+    n_s2_images: 4
 
     io_backend:
       type: disk
@@ -69,30 +69,32 @@ test_datasets:
 
      use_shuffle: False
 
-     n_s2_images: 8
+     n_s2_images: 4
 
      io_backend:
        type: disk
 
-# Network Structure
 network_g:
-  type: SRCNN
-  in_channels: 3
-  mask_channels: 0 
-  hidden_channels: 128
-  out_channels: 3
-  kernel_size: 3
-  residual_layers: 1
-  output_size: 128
-  revisits: 8
-  zoom_factor: 4
-  sr_kernel_size: 1
+  type: SSR_RRDBNet
+  num_in_ch: 12  # number of Sentinel2 images * 3 channels (RGB)
+  num_out_ch: 3
+  num_feat: 64
+  num_block: 23
+  num_grow_ch: 32
+
+network_d:
+  type: SSR_UNetDiscriminatorSN
+  num_in_ch: 15  # RGB of Real/Fake image + [optional] old high-res image + [optional] low-res images
+  num_feat: 64
+  skip_connection: True
 
 # path
 path:
-  pretrain_network_g: /content/srcnn.pth
+  pretrain_network_g: /content/esrgan_4S2.pth
   param_key_g: params_ema
   strict_load_g: true
+  param_key_d: params
+  strict_load_d: true
   resume_state: ~
 
 # validation settings
