@@ -131,12 +131,12 @@ test:
        type: calculate_cpsnr
        crop_border: 4
        test_y_channel: false
-     lpips:
-       type: calculate_lpips
-       lpips_model: vgg
-     clipscore:
-       type: calculate_clipscore
-       clip_model: clipa-ViT-bigG-14  # see ssr/metrics/clipscore.py for currently supported models
+#     lpips:
+#       type: calculate_lpips
+#       lpips_model: vgg
+#     clipscore:
+#       type: calculate_clipscore
+#       clip_model: clipa-ViT-bigG-14  # see ssr/metrics/clipscore.py for currently supported models
      remote_clipscore:
        type: calculate_remote_clipscore
        clip_model: ViT-B-32  # see ssr/metrics/remote_clipscore.py for currently supported models
